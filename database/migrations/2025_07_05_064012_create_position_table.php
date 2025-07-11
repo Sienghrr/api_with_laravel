@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('branch_id');
             $table->string('name');
+            $table->softDeletes();
             $table->text('Description')->nullable();
             $table->timestamps();
         });
