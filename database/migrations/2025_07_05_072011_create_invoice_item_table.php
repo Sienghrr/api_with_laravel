@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('qty');
             $table->decimal('price',10,2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('invoice', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->decimal('total0',10,2);
+            $table-> softDeletes();
+            $table->decimal('total',10,2)->nullable();
             $table->timestamps();
         });
     }

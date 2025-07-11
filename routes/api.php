@@ -14,3 +14,5 @@ include 'admin/staff.php';
 include 'admin/category.php';
 include 'admin/product.php';
 include 'admin/user.php';
+include 'admin/invoice.php';
+include 'admin/invoiceItem.php';
