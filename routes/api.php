@@ -13,3 +13,4 @@ include 'admin/position.php';
 include 'admin/staff.php';
 include 'admin/category.php';
 include 'admin/product.php';
+include 'admin/user.php';

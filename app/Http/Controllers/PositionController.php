@@ -133,44 +133,33 @@ class PositionController extends Controller
  *     path="/api/position/create",
  *     summary="Create a new position",
  *     tags={"Position"},
- *     description="Creates a new position and assigns it to a branch.",
- *
+ *     description="Create a new position with a name and associated branch ID.",
+ *     
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
  *             required={"name", "branch_id"},
- *             @OA\Property(property="name", type="string", example="HR Manager"),
+ *             @OA\Property(property="name", type="string", example="Manager"),
  *             @OA\Property(property="branch_id", type="integer", example=1)
  *         )
  *     ),
- *
+ *     
  *     @OA\Response(
  *         response=200,
  *         description="Position created successfully",
  *         @OA\JsonContent(
  *             @OA\Property(property="status", type="string", example="success"),
- *             @OA\Property(property="new_position", type="object",
- *                 @OA\Property(property="id", type="integer", example=5),
- *                 @OA\Property(property="name", type="string", example="HR Manager"),
- *                 @OA\Property(property="branch_id", type="integer", example=1),
- *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-07-10T10:00:00.000000Z"),
- *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-07-10T10:00:00.000000Z")
- *             ),
+ *             @OA\Property(property="new_position", type="object"),
  *             @OA\Property(property="status_code", type="integer", example=200)
  *         )
  *     ),
- *
+ *     
  *     @OA\Response(
  *         response=422,
- *         description="Validation failed",
+ *         description="Validation error",
  *         @OA\JsonContent(
  *             @OA\Property(property="status", type="string", example="error"),
- *             @OA\Property(
- *                 property="errors",
- *                 type="object",
- *                 @OA\Property(property="name", type="string", example="Position name is not allowed to be null."),
- *                 @OA\Property(property="branch_id", type="string", example="Branch ID must be an integer.")
- *             ),
+ *             @OA\Property(property="errors", type="object"),
  *             @OA\Property(property="status_code", type="integer", example=422)
  *         )
  *     )
@@ -180,13 +169,17 @@ class PositionController extends Controller
 
         $rules = [
         'name'    => 'required|string|max:255',
-        'branch_id'       => 'required|integer'        
+        'branch_id'   => 'required|integer|exists:branch,id'        
         ];
 
         $messages = [
-            'name.required'    => 'Position name is not allowed to be null.',
-            'branch_id.required'       => 'Branch_id is not allowed to be null.',
-            'branch_id.integer' => 'Branch_id is not allowed to be String.',
+        
+        'name.required' => 'branch name is required.',
+        'name.string' => 'branch name must be a valid string.',
+        'name.max' => 'branch name cannot exceed 255 characters.',
+        'branch_id.required' => 'Branch ID is required.',
+        'branch_id.integer'  => 'Branch ID must be an integer.',
+        'branch_id.exists'   => 'The selected branch ID does not exist.'
         ];
 
         $result = ValidationService::validate($request->all(), $rules , $messages);        
@@ -204,23 +197,23 @@ class PositionController extends Controller
         ]);
     }
 
-    /**
+   /**
  * @OA\Post(
  *     path="/api/position/update",
  *     summary="Update an existing position",
  *     tags={"Position"},
- *     description="Update position details by ID",
- *
+ *     description="Update the name and branch_id of a position by its ID.",
+ *     
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
  *             required={"id", "name", "branch_id"},
  *             @OA\Property(property="id", type="integer", example=1),
- *             @OA\Property(property="name", type="string", example="Senior Manager"),
+ *             @OA\Property(property="name", type="string", example="Assistant Manager"),
  *             @OA\Property(property="branch_id", type="integer", example=2)
  *         )
  *     ),
- *
+ *     
  *     @OA\Response(
  *         response=200,
  *         description="Position updated successfully",
@@ -230,6 +223,7 @@ class PositionController extends Controller
  *             @OA\Property(property="status_code", type="integer", example=200)
  *         )
  *     ),
+ *     
  *     @OA\Response(
  *         response=422,
  *         description="Validation error",
@@ -238,21 +232,35 @@ class PositionController extends Controller
  *             @OA\Property(property="errors", type="object"),
  *             @OA\Property(property="status_code", type="integer", example=422)
  *         )
+ *     ),
+ *     
+ *     @OA\Response(
+ *         response=404,
+ *         description="Position not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="Position with ID {id} not found"),
+ *             @OA\Property(property="status_code", type="integer", example=404)
+ *         )
  *     )
  * )
  */
+
     function updatePosition(Request $request){
         $position = Position::find($request->id);
         if ($position!= null){
         $rules = [
         'name'    => 'required|string|max:255',
-        'branch_id'       => 'required|integer'        
+        'branch_id'   => 'required|integer|exists:branch,id'        
         ];
 
         $messages = [
-            'name.required'    => 'Position name is not allowed to be null.',
-            'branch_id.required'       => 'Branch_id is not allowed to be null.',
-            'branch_id.integer' => 'Branch_id is not allowed to be String.',
+        
+        'name.required' => 'branch name is required.',
+        'name.string' => 'branch name must be a valid string.',
+        'name.max' => 'branch name cannot exceed 255 characters.',
+        'branch_id.required' => 'Branch ID is required.',
+        'branch_id.integer'  => 'Branch ID must be an integer.',
+        'branch_id.exists'   => 'The selected branch ID does not exist.'
         ];
 
         $result = ValidationService::validate($request->all(), $rules , $messages);        
