@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Fake Store API",
+        "title": "Dong-Siengly",
         "description": "This is the API documentation for my Laravel project.",
         "contact": {
             "email": "your-email@example.com"
@@ -1069,12 +1069,12 @@
             }
         },
         "/api/invoice/update": {
-            "put": {
+            "post": {
                 "tags": [
                     "Invoice"
                 ],
                 "summary": "Update an existing invoice",
-                "operationId": "82a63d102212d0b452de921c9f85b7d3",
+                "operationId": "e8120ba5068d827ad79d58f8fe823621",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1189,12 +1189,12 @@
             }
         },
         "/api/invoice/delete/soft": {
-            "delete": {
+            "post": {
                 "tags": [
                     "Invoice"
                 ],
                 "summary": "Soft delete an invoice",
-                "operationId": "d89dab7c85fed5443b70264b3df03e34",
+                "operationId": "dda6cb7d18df4441006b2849f666bff1",
                 "requestBody": {
                     "required": true,
                     "content": {

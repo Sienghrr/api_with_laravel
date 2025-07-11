@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Info(
- *     title="Fake Store API",
+ *     title="Dong-Siengly",
  *     version="1.0.0",
  *     description="This is the API documentation for my Laravel project.",
  *     @OA\Contact(

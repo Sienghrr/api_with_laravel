@@ -153,7 +153,7 @@ class InvoiceController extends Controller
     }
 
     /**
- * @OA\Put(
+ * @OA\Post(
  *     path="/api/invoice/update",
  *     summary="Update an existing invoice",
  *     tags={"Invoice"},
@@ -253,7 +253,7 @@ class InvoiceController extends Controller
 }
 
 /**
- * @OA\Delete(
+ * @OA\Post(
  *     path="/api/invoice/delete/soft",
  *     summary="Soft delete an invoice",
  *     tags={"Invoice"},
